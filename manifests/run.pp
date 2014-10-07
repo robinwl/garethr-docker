@@ -23,6 +23,7 @@ define docker::run(
   $disable_network = false,
   $privileged = false,
   $extra_parameters = undef,
+  $pull_on_start = false
 ) {
   include docker::params
   $docker_command = $docker::params::docker_command

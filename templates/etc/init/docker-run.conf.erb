@@ -10,6 +10,14 @@ stop on stopping <%= @service_name %>
 respawn
 respawn limit 5 20
 
+<% if @pull_on_start %>
+pre-start script
+<%= @docker_command %> kill <%= @name %> 
+<%= @docker_command %> rm <%= @name %> 
+<%= @docker_command %> pull <%= @image %>
+end script
+<% end %>
+
 <% if @use_name %>
 script
 <%= @docker_command %> inspect <%= @name %> && <%= @docker_command %> start -a -i <%= @name %>
